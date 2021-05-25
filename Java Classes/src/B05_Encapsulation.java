@@ -26,3 +26,11 @@ class Person {
 		this.name = newName;
 	}
 }//class
+
+/* Why Encapsulation
+ * 
+ * Better control of class attributes and methods
+ * Class attributes can be made read-only or write-only
+ * Flexible: the programmer can change one part of the code without affecting other parts
+ * Increased security of data
+ */
