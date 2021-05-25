@@ -1,23 +1,20 @@
 
 public class Card {
-
-	String[] kinds = {"", "SPADE", "DIAMOND", "HEART", "CLOVER"};
-	String[] numbers = {"0","1","2","3","4","5","6","7","8","9","10","J","Q","K"};
 	
-	int kind;
-	int number;
+	String kind;  //spade,diamond,heart,clover 4개
+	String number; //1,2,3,4,5,6,7,8,9,10,J,Q,K
 	
-	Card(){
-		this(1,1);
+	Card(){ //기본생성자
+		this("SPADE","1"); //다른생성자 호출
 	}
 	
-	Card(int kind, int number){
-		this.kind= kind;
+	Card(String kind,String number){
+		this.kind = kind;
 		this.number = number;
 	}
 	
-	void card_print(int kind, int number) {
-		System.out.printf("카드 종류 : %s, %s\n", kinds[kind], numbers[number]);
-	}
-	
+//	public String toString() {
+//		return "카드 : "+kind+","+number;
+//	}
+
 }
