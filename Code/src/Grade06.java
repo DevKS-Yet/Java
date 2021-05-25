@@ -1,9 +1,7 @@
-import java.util.Scanner;
 
 public class Grade06 {
 
 	public static void main(String[] args) {
-		Scanner scan = new Scanner(System.in);
 
 		Student03[] s = Student03.stuNum();
 		int sbjNum = Student03.sbjNum();
