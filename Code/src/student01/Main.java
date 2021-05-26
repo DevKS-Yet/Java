@@ -76,7 +76,7 @@ public class Main {
 			case "5":
 				break;
 			case "0":
-				System.out.println("시스템을 종료합니다.1");
+				System.out.println("시스템을 종료합니다.");
 				break loopwhile1;
 			default:
 				System.out.println("다시 입력해주세요");
