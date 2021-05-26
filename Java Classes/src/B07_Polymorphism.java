@@ -18,8 +18,8 @@ class Dog extends Animal {
 
 public class B07_Polymorphism {
 	public static void main(String[] args) {
-		Animal myAnimal = new Animal();
-		Animal myPig = new Pig();
+		Animal myAnimal = new Animal(); // create parent class object
+		Animal myPig = new Pig(); // create child class through parent class object variable
 		Animal myDog = new Dog();
 		myAnimal.animalSound();
 		myPig.animalSound();
