@@ -198,7 +198,7 @@ public class Process {
 		int check = 0;
 		System.out.println("수정 이름 : ");
 		String search = scan.next();
-		equalsStudent(search, s, check); // 이름값 동일시 수정 메서드
+		check = equalsStudent(search, s, check); // 이름값 동일시 수정 메서드
 
 		if (check == 0) { // 동일값 없을시 포함값 출력
 			for (int i = 0; i < s.size(); i++) {

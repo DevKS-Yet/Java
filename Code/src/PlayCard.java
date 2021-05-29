@@ -39,7 +39,7 @@ public class PlayCard {
 			
 			
 		}
-
+		scan.close();
 	}
 
 }
