@@ -18,7 +18,8 @@ public class B21_RegularExpressions {
 }
 
 /*
- * compile() 1. Pattern.CASE_INSENSITIVE - The case of letters will be ignored
+ * compile()
+ * 1. Pattern.CASE_INSENSITIVE - The case of letters will be ignored
  * when performing a search.
  * 2. Pattern.LITERAL - Special characters in the
  * pattern will not have any special meaning and will be treated as ordinary
