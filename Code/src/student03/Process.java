@@ -80,6 +80,7 @@ public class Process {
 	}
 
 //------------------------------------------------------------------------------
+	
 	void studentUpdate(ArrayList list) {
 		System.out.println("이름(0.상위메뉴) : ");
 		String search = scan.next();

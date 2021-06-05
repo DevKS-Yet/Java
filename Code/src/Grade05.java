@@ -49,5 +49,6 @@ public class Grade05 {
 				break;
 			}//switch
 		} // while
+		scan.close();
 	}// main
 }// class
