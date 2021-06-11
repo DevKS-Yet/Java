@@ -43,6 +43,9 @@ public class Main {
 			case "5":
 				p.rankStudent(stu_list);
 				break;
+			case "9":
+				p.changeSubject(sbj_name);
+				break;
 			case "0":
 				System.out.println("시스템을 종료하겠습니다.");
 				break whileloop;

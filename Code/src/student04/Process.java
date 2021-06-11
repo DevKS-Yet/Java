@@ -16,6 +16,7 @@ public class Process {
 		System.out.println("3. 학생성적검색");
 		System.out.println("4. 학생성적수정");
 		System.out.println("5. 등수처리");
+		System.out.println("9. 과목명 변경");
 		System.out.println("0. 시스템 종료");
 		System.out.println("------------------");
 		System.out.println("원하는 것을 선택하세요.>>");
@@ -173,5 +174,20 @@ public class Process {
 	}
 
 //------------------------------------------------------------------------
+	//과목명 바꾸기
+	void changeSubject(ArrayList<String> sbj_name) {
+		for(int i=0; i<sbj_name.size(); i++) {
+			System.out.print(sbj_name.get(i)+" ");
+		}
+		System.out.println("\n어떤 것을 바꾸시겠습니까?");
+		String sbj = scan.next();
+		for(int i=0; i<sbj_name.size(); i++) {
+			if(sbj_name.get(i).equals(sbj)) {
+				System.out.print("과목명 : ");
+				sbj = scan.next();
+				sbj_name.set(i, sbj);
+			}
+		}
+	}
 
 }// class
