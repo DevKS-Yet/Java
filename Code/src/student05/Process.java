@@ -41,7 +41,8 @@ public class Process {
 		String name = scan.next();
 		for (int i = 0; i < s.size(); i++) {
 			if (name.equals(s.get(i).getName())) {
-				// 학생 성적 출력
+				printStudentTop(sbj_name);
+				printStudentOne(s, i);
 				System.out.println("어떤 것을 수정?");
 				name = scan.next();
 				for (int j = 0; j < sbj_name.size(); j++) {
@@ -71,16 +72,60 @@ public class Process {
 		String name = scan.next();
 		for (int i = 0; i < s.size(); i++) {
 			if (s.get(i).getName().equals(name)) {
-				// 출력부분
+				printStudentTop(sbj_name);
+				printStudentOne(s, i);
 				return;
 			}
 		}
 		for (int i = 0; i < s.size(); i++) {
 			if (s.get(i).getName().contains(name)) {
-				System.out.print(s.get(i).getName());
+				System.out.print("이름 :");
+				System.out.print(" "+s.get(i).getName());
+			}
+		}
+		System.out.println("이름 : ");
+		name = scan.next();
+		for(int i=0; i<s.size();i++) {
+			if(s.get(i).getName().equals(name)) {
+				printStudentTop(sbj_name);
+				printStudentOne(s, i);
 			}
 		}
 	}
 //----------------------------------------------------------------------
+	void printStudentTop(ArrayList<String> sbj_name) {
+		System.out.print("학번\t이름");
+		for(int i=0; i<sbj_name.size();i++) {
+			System.out.print("\t"+sbj_name.get(i));
+		}
+		System.out.println("\t합계\t평균\t등수");
+	}
+	
+	void printStudentOne(ArrayList<Student> s, int i) {
+		System.out.print(s.get(i).getId()+"\t"+s.get(i).getName());
+		for(int j=0; j<s.get(i).getScore().size();j++) {
+			System.out.print("\t"+s.get(i).getScore().get(j));
+		}
+		System.out.printf("\t%d\t%.2f\t%d", s.get(i).getTotal(), s.get(i).getAvg(), s.get(i).getRank());
+	}
+	
+	void printStudent(ArrayList<Student> s, ArrayList<String> sbj_name) {
+		printStudentTop(sbj_name);
+		for(int i=0; i<s.size();i++) {
+			printStudentOne(s, i);
+		}
+	}
+//----------------------------------------------------------------------
+	void rankStudent(ArrayList<Student> s) {
+		for(int i=0; i<s.size(); i++) {
+			int rank = 1;
+			for(int j=0; j<s.size(); j++) {
+				if(s.get(i).getTotal()<s.get(j).getTotal()) {
+					rank++;
+				}
+			}
+			s.get(i).setRank(rank);
+		}
+	}
 
 }
