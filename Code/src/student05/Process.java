@@ -21,15 +21,38 @@ public class Process {
 
 //----------------------------------------------------------------------
 	void addStudent(ArrayList<Student> s, ArrayList<String> sbj_name) {
-		System.out.print("이름 : ");
+		System.out.print("이름(0. 종료) : ");
 		String name = scan.next();
+		if(name.equals("0")) {
+			System.out.println("추가를 종료합니다.");
+			return;
+		}
+		loopfor:for(int i=0; i<s.size();i++) {
+			if(s.get(i).getName().equals(name)) {
+				System.out.println("동일한 이름이 있습니다. 계속하시겠습니까?(Y/N)");
+				String choice = scan.next();
+				switch(choice) {
+				case "Y":
+					System.out.println("계속하겠습니다.");
+					break loopfor;
+				case "N":
+					System.out.println("종료하겠습니다.");
+					return;
+				default:
+					System.out.println("제대로 입력해주셈");
+					break;
+				}
+			}
+		}
 		ArrayList<Integer> score = new ArrayList<Integer>();
 		for (int i = 0; i < sbj_name.size(); i++) {
 			System.out.print(sbj_name.get(i) + " : ");
-			score.add(scan.nextInt());
-			if (score.get(i) < 0 || score.get(i) > 100) {
+			int tmp = scan.nextInt();
+			if (tmp < 0 || tmp > 100) {
 				System.out.println("점수는 0~100점 사이만!");
 				i--;
+			} else {
+				score.add(tmp);
 			}
 		}
 		s.add(new Student(name, score));
@@ -68,6 +91,7 @@ public class Process {
 
 //----------------------------------------------------------------------
 	void searchStudent(ArrayList<Student> s, ArrayList<String> sbj_name) {
+		boolean check = false;
 		System.out.print("이름 : ");
 		String name = scan.next();
 		for (int i = 0; i < s.size(); i++) {
@@ -79,11 +103,14 @@ public class Process {
 		}
 		for (int i = 0; i < s.size(); i++) {
 			if (s.get(i).getName().contains(name)) {
-				System.out.print("이름 :");
+				if(check == false) {
+					System.out.print("비슷한 이름 :");
+				}
 				System.out.print(" "+s.get(i).getName());
+				check = true;
 			}
 		}
-		System.out.println("이름 : ");
+		System.out.print("\n이름 : ");
 		name = scan.next();
 		for(int i=0; i<s.size();i++) {
 			if(s.get(i).getName().equals(name)) {
@@ -106,7 +133,7 @@ public class Process {
 		for(int j=0; j<s.get(i).getScore().size();j++) {
 			System.out.print("\t"+s.get(i).getScore().get(j));
 		}
-		System.out.printf("\t%d\t%.2f\t%d", s.get(i).getTotal(), s.get(i).getAvg(), s.get(i).getRank());
+		System.out.printf("\t%d\t%.2f\t%d\n", s.get(i).getTotal(), s.get(i).getAvg(), s.get(i).getRank());
 	}
 	
 	void printStudent(ArrayList<Student> s, ArrayList<String> sbj_name) {
