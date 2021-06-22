@@ -1,4 +1,4 @@
-package shopMall;
+package shopMall01;
 
 public class Product {
 
