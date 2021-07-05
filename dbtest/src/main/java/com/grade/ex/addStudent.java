@@ -61,5 +61,7 @@ public class addStudent extends HttpServlet {
 				throw new RuntimeException(e.getMessage());
 			}
 		}
+		
+		response.sendRedirect("./index.jsp");
 	}
 }

@@ -11,7 +11,7 @@
   <h1>학생성적관리 시스템</h1>
   <div>
     <div><a href="./1addStudent.jsp"><button><span>1. 학생성적추가</span></button></a></div>
-    <div><a href=""><button><span>2. 학생성적출력</span></button></a></div>
+    <div><a href="./2printStudent.jsp"><button><span>2. 학생성적출력</span></button></a></div>
     <div><a href=""><button><span>3. 학생성적검색</span></button></a></div>
     <div><a href=""><button><span>4. 학생성적수정</span></button></a></div>
     <div><a href=""><button><span>5. 등수처리</span></button></a></div>
