@@ -17,6 +17,7 @@ public class DAO {
 	DataSource ds = null;
 	Connection conn = null;
 	PreparedStatement pstmt = null;
+	PreparedStatement pstmt2 = null;
 	ResultSet rs = null;
 	
 	//데이터베이스 연결**
@@ -261,5 +262,48 @@ public class DAO {
 	}
 //-------------------------------------------------------------------------
 	
+	//학생수정
+	public void updateStudent() {
+		
+	}
+//-------------------------------------------------------------------------
+	
+	//등수처리
+	public boolean rankStudent() {
+		boolean check = false;
+		try {
+			conn = getConnection();
+			System.out.println("DB 연결 성공");
+			String sql = "select * from student order by total desc, stuNo";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			System.out.println("쿼리문 실행 성공");
+			sql = "update student set rank=? where stuNo=?";
+			pstmt2 = conn.prepareStatement(sql);
+			int i=0;
+			while(rs.next()) {
+				pstmt2.setInt(1, ++i);
+				pstmt2.setInt(2, rs.getInt("stuNo"));
+				pstmt2.addBatch();
+			}
+			pstmt2.executeBatch();
+			System.out.println("등수처리 성공");
+			pstmt2.close();
+			check = true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt2 != null) pstmt2.close();
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return check;
+	}
+//-------------------------------------------------------------------------
 
 }
