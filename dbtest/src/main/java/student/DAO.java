@@ -27,7 +27,7 @@ public class DAO {
 		return ds.getConnection();
 	}
 	//데이터베이스 행 갯수
-	private int countDB() {
+	public int countDB() {
 		int countDB = 0;
 		try {
 			conn = getConnection();
@@ -79,7 +79,9 @@ public class DAO {
 		}
 		return resultNum;
 	}
+//-------------------------------------------------------------------------
 	
+	//학생출력 메소드
 	public ArrayList<DTO> printStudent(ArrayList<DTO> sDTO){ //ArrayList 제네릭스로 DTO를 준 sDTO배열을 받고 반환
 		try {
 			conn = getConnection();
@@ -112,7 +114,9 @@ public class DAO {
 		}
 		return sDTO;
 	}
+//-------------------------------------------------------------------------
 	
+	//학생검색 메소드
 	//학생검색(학번)
 	public DTO searchStudentByStuNo(int stuNo) { //검색하고자하는 stuNo 매개변수를 받아서 찾은 후에 DTO로 리턴
 		try {
@@ -124,7 +128,6 @@ public class DAO {
 			rs = pstmt.executeQuery();
 			System.out.println("쿼리문 실행 성공");
 			if(rs.last()) {
-				System.out.println(rs.getRow());
 				if(rs.getRow()==1) {
 					rs.first();
 					System.out.println(rs.getRow());
@@ -161,25 +164,39 @@ public class DAO {
 		}
 		return sDTO;
 	}
-	
+	//학생검색(이름)
 	public DTO searchStudentByName(String name) {
 		try {
 			conn = getConnection();
 			System.out.println("DB연결");
 			String sql = "select * from student where name=?";
-			pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE); //rs의 커서 움직이기 위함
 			pstmt.setString(1, name);
 			rs = pstmt.executeQuery();
 			System.out.println("쿼리문 실행 성공");
-			if(rs.next()) {
-				sDTO.setStuNo(rs.getInt("stuNo"));
-				sDTO.setName(rs.getString("name"));
-				sDTO.setKor(rs.getInt("kor"));
-				sDTO.setEng(rs.getInt("eng"));
-				sDTO.setMath(rs.getInt("math"));
-				sDTO.setTotal(rs.getInt("total"));
-				sDTO.setAvg(rs.getDouble("avg"));
-				sDTO.setRank(rs.getInt("rank"));
+			if(rs.last()) { //rs 커서를 마지막 레코드로 보냄. rs값이 없을 경우엔 false
+				if(rs.getRow()==1) { //현재 커서가 위치하고 있는 레코드 번호가 1인지 아닌지 확인
+					rs.first();
+					System.out.println(rs.getRow());
+					sDTO.setStuNo(rs.getInt("stuNo"));
+					sDTO.setName(rs.getString("name"));
+					sDTO.setKor(rs.getInt("kor"));
+					sDTO.setEng(rs.getInt("eng"));
+					sDTO.setMath(rs.getInt("math"));
+					sDTO.setTotal(rs.getInt("total"));
+					sDTO.setAvg(rs.getDouble("avg"));
+					sDTO.setRank(rs.getInt("rank"));
+				} else { //위 조건이 아닐 경우 커서를 0번으로 보내며 하나씩 추가하며 이름 저장 후 출력
+					rs.beforeFirst();
+					name = "";
+					while(rs.next()) {
+						if(rs.getRow()==1) name = rs.getString("name");
+						else name += ", " + rs.getString("name");
+					}
+					sDTO.setName(name);
+				}
+			} else {
+				System.out.println("데이터가 없습니다.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -194,26 +211,40 @@ public class DAO {
 		}
 		return sDTO;
 	}
-	
+	//학생검색(학번,이름)
 	public DTO searchStudentByBoth(int stuNo, String name) {
 		try {
 			conn = getConnection();
 			System.out.println("DB연결");
 			String sql = "select * from student where stuNo=? and name=?";
-			pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 			pstmt.setInt(1, stuNo);
 			pstmt.setString(2, name);
 			rs = pstmt.executeQuery();
 			System.out.println("쿼리문 실행 성공");
-			if(rs.next()) {
-				sDTO.setStuNo(rs.getInt("stuNo"));
-				sDTO.setName(rs.getString("name"));
-				sDTO.setKor(rs.getInt("kor"));
-				sDTO.setEng(rs.getInt("eng"));
-				sDTO.setMath(rs.getInt("math"));
-				sDTO.setTotal(rs.getInt("total"));
-				sDTO.setAvg(rs.getDouble("avg"));
-				sDTO.setRank(rs.getInt("rank"));
+			if(rs.last()) {
+				if(rs.getRow()==1) {
+					rs.first();
+					System.out.println(rs.getRow());
+					sDTO.setStuNo(rs.getInt("stuNo"));
+					sDTO.setName(rs.getString("name"));
+					sDTO.setKor(rs.getInt("kor"));
+					sDTO.setEng(rs.getInt("eng"));
+					sDTO.setMath(rs.getInt("math"));
+					sDTO.setTotal(rs.getInt("total"));
+					sDTO.setAvg(rs.getDouble("avg"));
+					sDTO.setRank(rs.getInt("rank"));
+				} else {
+					rs.beforeFirst();
+					name = "";
+					while(rs.next()) {
+						if(rs.getRow()==1) name = rs.getString("name");
+						else name += ", " + rs.getString("name");
+					}
+					sDTO.setName(name);
+				}
+			} else {
+				System.out.println("데이터가 없습니다.");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -228,5 +259,7 @@ public class DAO {
 		}
 		return sDTO;
 	}
+//-------------------------------------------------------------------------
+	
 
 }
