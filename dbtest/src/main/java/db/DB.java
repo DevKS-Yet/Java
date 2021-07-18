@@ -12,9 +12,9 @@ public class DB {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 
-	private Connection connectDB(String user, String pw) {
+	private Connection connectDB(String user, String pw, String host, String port, String sid) {
 		try {
-			String url = "jdbc:oracle:thin:@localhost:1521:xe";
+			String url = "jdbc:oracle:thin:@"+host+":"+port+":"+sid;
 			String driver = "oracle.jdbc.driver.OracleDriver";
 
 			Class.forName(driver);
@@ -32,10 +32,10 @@ public class DB {
 		return conn;
 	}
 	
-	public boolean createDB(String user, String pw) {
+	public boolean createDB(String user, String pw, String host, String port, String sid) {
 		boolean result = false;
 		try {
-			conn = connectDB(user, pw);
+			conn = connectDB(user, pw, host, port, sid);
 			System.out.println("DB 연결 성공");
 			String sql = "create table student(stuNo number(3) primary key, name varchar2(30) not null, kor number(3), eng number(3), math number(3), total number(3), avg number(5,2), rank number(3))";
 			pstmt = conn.prepareStatement(sql);
@@ -60,10 +60,10 @@ public class DB {
 		return result;
 	}
 	
-	public boolean deleteDB(String user, String pw) {
+	public boolean deleteDB(String user, String pw, String host, String port, String sid) {
 		boolean result = false;
 		try {
-			conn = connectDB(user, pw);
+			conn = connectDB(user, pw, host, port, sid);
 			System.out.println("DB 연결 성공");
 			String sql = "drop table student cascade constraint purge";
 			pstmt = conn.prepareStatement(sql);

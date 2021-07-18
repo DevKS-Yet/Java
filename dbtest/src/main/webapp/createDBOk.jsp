@@ -7,10 +7,13 @@
 
 	String user = request.getParameter("user");
 	String pw = request.getParameter("pw");
+	String host = request.getParameter("host");
+	String port = request.getParameter("port");
+	String sid = request.getParameter("sid");
 	boolean result = false;
 	
 	DB sDB = new DB();
-	result = sDB.createDB(user, pw);
+	result = sDB.createDB(user, pw, host, port, sid);
 %>
 <html>
 	<head>
