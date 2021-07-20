@@ -7,10 +7,13 @@
 
 	String user = request.getParameter("user");
 	String pw = request.getParameter("pw");
+	String host = request.getParameter("host");
+	String port = request.getParameter("port");
+	String sid = request.getParameter("sid");
 	boolean result = false;
 	
 	DB sDB = new DB();
-	result = sDB.deleteDB(user, pw);
+	result = sDB.deleteDB(user, pw, host, port, sid);
 %>
 <html>
 	<head>

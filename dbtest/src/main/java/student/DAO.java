@@ -32,10 +32,11 @@ public class DAO {
 		int countDB = 0;
 		try {
 			conn = getConnection();
-			System.out.println("DB연결");
+			System.out.println("DB 연결 성공");
 			String sql = "select count(*) from student";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
+			System.out.println("쿼리문 실행 성공");
 			countDB = rs.getInt(1);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -57,7 +58,7 @@ public class DAO {
 		int resultNum = 0;
 		try {
 			conn = getConnection();
-			System.out.println("DB연결");
+			System.out.println("DB 연결 성공");
 			String sql = "insert into student values(stu_seq.nextval,?,?,?,?,?,?,0)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, sDTO.getName());
@@ -86,7 +87,7 @@ public class DAO {
 	public ArrayList<DTO> printStudent(ArrayList<DTO> sDTO){ //ArrayList 제네릭스로 DTO를 준 sDTO배열을 받고 반환
 		try {
 			conn = getConnection();
-			System.out.println("DB연결");
+			System.out.println("DB 연결 성공");
 			String sql = "select * from student";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -101,6 +102,7 @@ public class DAO {
 				double avg = rs.getDouble("avg");
 				int rank = rs.getInt("rank");
 				sDTO.add(new DTO(stuNo, name, kor, eng, math, total, avg, rank));
+				System.out.println(name+"의 정보 sDTO에 입력 완료");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -122,33 +124,21 @@ public class DAO {
 	public DTO searchStudentByStuNo(int stuNo) { //검색하고자하는 stuNo 매개변수를 받아서 찾은 후에 DTO로 리턴
 		try {
 			conn = getConnection();
-			System.out.println("DB연결");
+			System.out.println("DB 연결 성공");
 			String sql = "select * from student where stuNo=?";
-			pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, stuNo);
 			rs = pstmt.executeQuery();
 			System.out.println("쿼리문 실행 성공");
-			if(rs.last()) {
-				if(rs.getRow()==1) {
-					rs.first();
-					System.out.println(rs.getRow());
-					sDTO.setStuNo(rs.getInt("stuNo"));
-					sDTO.setName(rs.getString("name"));
-					sDTO.setKor(rs.getInt("kor"));
-					sDTO.setEng(rs.getInt("eng"));
-					sDTO.setMath(rs.getInt("math"));
-					sDTO.setTotal(rs.getInt("total"));
-					sDTO.setAvg(rs.getDouble("avg"));
-					sDTO.setRank(rs.getInt("rank"));
-				} else {
-					rs.beforeFirst();
-					String name = "";
-					while(rs.next()) {
-						if(rs.getRow()==1) name = rs.getString("name");
-						else name += ", " + rs.getString("name");
-					}
-					sDTO.setName(name);
-				}
+			if(rs.next()) {
+				sDTO.setStuNo(rs.getInt("stuNo"));
+				sDTO.setName(rs.getString("name"));
+				sDTO.setKor(rs.getInt("kor"));
+				sDTO.setEng(rs.getInt("eng"));
+				sDTO.setMath(rs.getInt("math"));
+				sDTO.setTotal(rs.getInt("total"));
+				sDTO.setAvg(rs.getDouble("avg"));
+				sDTO.setRank(rs.getInt("rank"));
 			} else {
 				System.out.println("데이터가 없습니다.");
 			}
@@ -218,32 +208,20 @@ public class DAO {
 			conn = getConnection();
 			System.out.println("DB연결");
 			String sql = "select * from student where stuNo=? and name=?";
-			pstmt = conn.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, stuNo);
 			pstmt.setString(2, name);
 			rs = pstmt.executeQuery();
 			System.out.println("쿼리문 실행 성공");
-			if(rs.last()) {
-				if(rs.getRow()==1) {
-					rs.first();
-					System.out.println(rs.getRow());
-					sDTO.setStuNo(rs.getInt("stuNo"));
-					sDTO.setName(rs.getString("name"));
-					sDTO.setKor(rs.getInt("kor"));
-					sDTO.setEng(rs.getInt("eng"));
-					sDTO.setMath(rs.getInt("math"));
-					sDTO.setTotal(rs.getInt("total"));
-					sDTO.setAvg(rs.getDouble("avg"));
-					sDTO.setRank(rs.getInt("rank"));
-				} else {
-					rs.beforeFirst();
-					name = "";
-					while(rs.next()) {
-						if(rs.getRow()==1) name = rs.getString("name");
-						else name += ", " + rs.getString("name");
-					}
-					sDTO.setName(name);
-				}
+			if(rs.next()) {
+				sDTO.setStuNo(rs.getInt("stuNo"));
+				sDTO.setName(rs.getString("name"));
+				sDTO.setKor(rs.getInt("kor"));
+				sDTO.setEng(rs.getInt("eng"));
+				sDTO.setMath(rs.getInt("math"));
+				sDTO.setTotal(rs.getInt("total"));
+				sDTO.setAvg(rs.getDouble("avg"));
+				sDTO.setRank(rs.getInt("rank"));
 			} else {
 				System.out.println("데이터가 없습니다.");
 			}
@@ -263,8 +241,9 @@ public class DAO {
 //-------------------------------------------------------------------------
 	
 	//학생수정
-	public void updateStudent() {
-		
+	public DTO updateStudent(int stuNo, String name) {
+		sDTO = searchStudentByBoth(stuNo, name);
+		return sDTO;
 	}
 //-------------------------------------------------------------------------
 	
