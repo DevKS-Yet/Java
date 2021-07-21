@@ -54,7 +54,7 @@ public class Controller extends HttpServlet {
 			System.out.println("Controller - /board/write.do");
 			BoardService boardService = new BoardServiceWrite();
 			boardService.execute(request, response);
-			dp = request.getRequestDispatcher("/board/list.do");
+			dp = request.getRequestDispatcher("/board/list.do"); // /board/list.do를 실행 시켜서 리스트로 돌아가기
 			
 		} else if(path.equals("/board/modify_view.do")) {
 			System.out.println("Controller - /board/modify_view.do");
