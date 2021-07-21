@@ -67,6 +67,7 @@
         <th>조회수</th>
       </tr>
       <!-- 내용부분 -->
+      <!-- JSTL c:forEach -->
       <c:forEach var="boardVo" items="${list }">
       <tr>
         <td><span class="table-notice">${boardVo.bid }</span></td>
