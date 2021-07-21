@@ -20,7 +20,7 @@ public class BoardServiceWrite implements BoardService {
 			String btitle = multi.getParameter("btitle");
 			String bcontent = multi.getParameter("bcontent");
 			String bname = multi.getParameter("bname");
-			String bupload = multi.getParameter("bupload");
+			String bupload = multi.getFilesystemName("bupload");
 			
 			BoardDao boardDao = new BoardDao();
 			writeResult = boardDao.boardInsertOne(btitle, bcontent, bname, bupload);
