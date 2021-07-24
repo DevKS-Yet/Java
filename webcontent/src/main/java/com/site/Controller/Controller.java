@@ -40,39 +40,58 @@ public class Controller extends HttpServlet {
 		
 		if(path.equals("/board/list.do")) { // 해당 경로로 들어왔을 경우
 			System.out.println("Controller - /board/list.do");
+			//Interface BoardService와 Class BoardServiceList(interface 상속) 생성
 			BoardService boardService = new BoardServiceList(); // Interface를 사용한 다형성
-			boardService.execute(request, response); // BoardServiceList에 있는 execute 실행
-			dp = request.getRequestDispatcher("./list.jsp"); // /board/list.jsp로 포워드 위치 선정
+			System.out.println("Controller - boardService 객체 생성 완료");
+			//Class BoardServiceList에서 execute 메소드 내부 작성
+			boardService.execute(request, response); // BoardServiceList에 있는 execute 실행 및 반환값 있을 시 request에 저장하여 받음
+			System.out.println("Controller - execute 메소드 실행 완료");
+			dp = request.getRequestDispatcher("./list.jsp"); // 절대경로, 상대경로 지정 가능. 유지보수 편리한 걸로
+			System.out.println("Controller - dp 위치 선정 완료");
 			
 		} else if(path.equals("/board/content_view.do")) {
 			System.out.println("Controller - /board/content_view.do");
 			BoardService boardService = new BoardServiceContent_view();
+			System.out.println("Controller - boardService 객체 생성 완료");
 			boardService.execute(request, response);
+			System.out.println("Controller - execute 메소드 실행 완료");
 			dp = request.getRequestDispatcher("./content_view.jsp");
+			System.out.println("Controller - dp 위치 선정 완료");
 			
 		} else if(path.equals("/board/write.do")) {
 			System.out.println("Controller - /board/write.do");
 			BoardService boardService = new BoardServiceWrite();
+			System.out.println("Controller - boardService 객체 생성 완료");
 			boardService.execute(request, response);
 			dp = request.getRequestDispatcher("/board/list.do"); // /board/list.do를 실행 시켜서 리스트로 돌아가기
+			System.out.println("Controller - dp 위치 선정 완료");
 			
 		} else if(path.equals("/board/modify_view.do")) {
 			System.out.println("Controller - /board/modify_view.do");
 			BoardService boardService = new BoardServiceContent_view();
+			System.out.println("Controller - boardService 객체 생성 완료");
 			boardService.execute(request, response);
+			System.out.println("Controller - execute 메소드 실행 완료");
 			dp = request.getRequestDispatcher("./modify_view.jsp");
+			System.out.println("Controller - dp 위치 선정 완료");
 			
 		} else if(path.equals("/board/modify.do")) {
 			System.out.println("Controller - /board/modify.do");
 			BoardService boardService = new BoardServiceModify();
+			System.out.println("Controller - boardService 객체 생성 완료");
 			boardService.execute(request, response);
+			System.out.println("Controller - execute 메소드 실행 완료");
 			dp = request.getRequestDispatcher("/board/content_view.do");
+			System.out.println("Controller - dp 위치 선정 완료");
 			
 		} else if(path.equals("/board/delete.do")) {
 			System.out.println("Controller - /board/delete.do");
 			BoardService boardService = new BoardServiceDelete();
+			System.out.println("Controller - boardService 객체 생성 완료");
 			boardService.execute(request, response);
+			System.out.println("Controller - execute 메소드 실행 완료");
 			dp = request.getRequestDispatcher("/board/list.do");
+			System.out.println("Controller - dp 위치 선정 완료");
 		}
 		
 		dp.forward(request, response);
