@@ -8,6 +8,6 @@
 	</head>
 	<body>
 		<!-- Controller.java(Servlet)로 이동 -->
-		<h2><a href="./board/list.do">리스트페이지 이동</a></h2>
+		<h2><a href="./list.do">리스트페이지 이동</a></h2>
 	</body>
 </html>
