@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="../css/notice_list.css">
   
   <script type="text/javascript">
+  //글쓰기 성공 여부
 	  <c:if test="${not empty resultWrite }">
 	  	if(${resultWrite == 0}){
 	  		alert("글쓰기에 실패했습니다.");
@@ -20,6 +21,7 @@
 	  		alert("글쓰기에 성공했습니다.")
 	  	}
 	  </c:if>
+  //글수정 성공 여부
 	  <c:if test="${not empty resultModify }">
 		  if(${resultModify == 0}){
 			  alert("글수정에 실패했습니다.");
@@ -27,6 +29,7 @@
 			  alert("글수정에 성공했습니다.");
 		  }
 	  </c:if>
+  //답변 성공 여부
 	  <c:if test="${not empty resultReply }">
 		  if(${resultReply == 0}){
 			  alert("글답변에 실패했습니다.");
@@ -34,6 +37,7 @@
 			  alert("글답변에 성공했습니다.");
 		  }
 	  </c:if>
+  //글삭제 성공 여부
 	  <c:if test="${not empty resultDelete }">
 		  if(${resultDelete == 0}){
 			  alert("글삭제에 실패했습니다.");
@@ -84,6 +88,7 @@
         <td><span class="table-notice">${boardVo.bid }</span></td>
         <td class="table-title">
 	        <a href="./bview.do?bid=${boardVo.bid }&page=${page }&category=${category }&searchWord=${searchWord }">
+	        	<!-- 해당 레코드에서 bindent가 있을 시(답변글일시) -->
 		        <c:forEach begin="1" end="${boardVo.bindent }">▶</c:forEach>
 		        ${boardVo.btitle }
 	        </a>

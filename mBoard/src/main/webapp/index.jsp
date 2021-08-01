@@ -12,7 +12,7 @@
 			<h3>로그인을 하시면 더 많은 정보를 보실 수 있습니다.</h3>
 			<ul>
 				<li><a href="./member/login.jsp">로그인</a></li>
-				<li><a href="./member.do">회원가입</a></li>
+				<li><a href="./member/register.jsp">회원가입</a></li>
 			</ul>
 		</c:if>
 		<c:if test="${session_flag == 'success' }">
@@ -20,7 +20,7 @@
 			<ul>
 				<li><a href="./member/logout.jsp">로그아웃</a></li>
 				<li><a href="./board/blist.do">게시판</a></li>
-				<li><a href="./member_modify.do">회원정보수정</a></li>
+				<li><a href="./meber_modify.do">회원정보수정</a></li>
 			</ul>
 		</c:if>
 	</body>
