@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>Index</title>
 	</head>
 	<body>
 		<c:if test="${session_flag != 'success' }">

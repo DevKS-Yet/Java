@@ -207,6 +207,8 @@ public class BoardDao {
 //글답변-----------------------------------------------------------
 	public int boardOneReply(String btitle, String bcontent, String bname, int bgroup, int bstep, int bindent, String bupload) {
 		System.out.println("BoardDao - 시작");
+		System.out.println("BoardDao - boardStepAdd()");
+		boardStepAdd(bgroup, bstep); //하위 게시물 step 1 증가 메소드
 		try {
 			conn = getConnection();
 			String sql = "insert into board values(board_seq.nextval, ?, ?, ?, ?, ?, ?, sysdate, ?, 0)";
@@ -231,6 +233,29 @@ public class BoardDao {
 		}
 		System.out.println("BoardDao - 끝");
 		return result;
+	}
+	
+	//하위 게시물 step 1추가
+	public void boardStepAdd(int bgroup, int bstep) {
+		System.out.println("BoardDao - 시작");
+		try {
+			conn = getConnection();
+			String sql = "update board set bstep = bstep+1 where bgroup=? and bstep>?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bgroup);
+			pstmt.setInt(2, bstep);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		System.out.println("BoardDao - 끝");
 	}
 	
 //글삭제-----------------------------------------------------------
