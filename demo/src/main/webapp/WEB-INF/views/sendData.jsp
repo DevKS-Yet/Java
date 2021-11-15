@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-	<!---->
+	<!--미구현상태-->
 <script type="text/javascript">
 	function init() {
 		var name = new Array();
